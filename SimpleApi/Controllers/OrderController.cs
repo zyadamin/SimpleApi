@@ -21,17 +21,48 @@ namespace SimpleApi.Controllers
         {
             try
             {
-                if (order == null || !order.Items.Any())
-                    return BadRequest("Order must contain at least one item.");
-                
-               var result= _orderService.CreateOrder(order);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = _orderService.CreateOrder(order);
+
+                if (result > 0)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Order exceed limits");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmOrder(OrderInfo order)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var result = _orderService.ConfirmOrder(order);
 
                 if (result > 0)
                 {
                     return Ok("Order Submited successfully");
                 }
-                else {
-                    return BadRequest("Order exceed limits");
+                else
+                {
+                    return BadRequest("Something went wrong");
                 }
             }
             catch (Exception e)

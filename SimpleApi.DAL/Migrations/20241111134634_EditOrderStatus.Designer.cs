@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleApi.DAL.Context;
 
@@ -11,9 +12,10 @@ using SimpleApi.DAL.Context;
 namespace SimpleApi.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241111134634_EditOrderStatus")]
+    partial class EditOrderStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,18 +36,22 @@ namespace SimpleApi.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CustomerAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CustomerName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MobileNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ShippingMethod")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StatusId")
@@ -120,28 +126,28 @@ namespace SimpleApi.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 11, 11, 16, 31, 4, 776, DateTimeKind.Local).AddTicks(3040),
+                            CreatedDate = new DateTime(2024, 11, 11, 15, 46, 33, 918, DateTimeKind.Local).AddTicks(7831),
                             Description = "Order has been placed but not yet processed",
                             Name = "Pending"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 11, 11, 16, 31, 4, 776, DateTimeKind.Local).AddTicks(3075),
+                            CreatedDate = new DateTime(2024, 11, 11, 15, 46, 33, 918, DateTimeKind.Local).AddTicks(7863),
                             Description = "Order has been shipped to the customer",
                             Name = "Shipped"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 11, 11, 16, 31, 4, 776, DateTimeKind.Local).AddTicks(3076),
+                            CreatedDate = new DateTime(2024, 11, 11, 15, 46, 33, 918, DateTimeKind.Local).AddTicks(7865),
                             Description = "Order has been delivered to the customer",
                             Name = "Delivered"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 11, 11, 16, 31, 4, 776, DateTimeKind.Local).AddTicks(3078),
+                            CreatedDate = new DateTime(2024, 11, 11, 15, 46, 33, 918, DateTimeKind.Local).AddTicks(7867),
                             Description = "Order has been canceled",
                             Name = "Canceled"
                         });

@@ -25,18 +25,21 @@ namespace SimpleApi.BLL.Service
             double totalAmount = 0;
             List<OrderItem> items = new List<OrderItem>();
 
-            foreach (var item in order.Items) { 
-            
+            foreach (var item in order.Items)
+            {
+
                 Product product = _unitOfWork.Products.GetById(item.ProductId);
 
-                if (item.Quantity >= product.QuantityInStock) {
+                if (item.Quantity >= product.QuantityInStock)
+                {
                     return result;
                 }
 
-                OrderItem orderItem = new OrderItem() { 
-               
+                OrderItem orderItem = new OrderItem()
+                {
+
                     ProductId = item.ProductId,
-                    UnitPrice=product.Price,
+                    UnitPrice = product.Price,
                     Quantity = item.Quantity,
                     TotalPrice = product.Price * item.Quantity
                 };
@@ -46,16 +49,13 @@ namespace SimpleApi.BLL.Service
             Order submitedOrder = new Order()
             {
                 OrderItems = items,
-                MobileNumber = order.MobileNumber,
-                CustomerAddress = order.CustomerAddress,
-                CustomerName = order.CustomerName,
                 StatusId = (int)Status.Pending,
-                ShippingMethod = order.ShippingMethod,
                 TotalAmount = totalAmount,
             };
 
-             result = _unitOfWork.Orders.Add(submitedOrder).Id;
+            _unitOfWork.Orders.Add(submitedOrder);
             _unitOfWork.Complete();
+            result = submitedOrder.Id;
 
             return result;
 
@@ -70,7 +70,7 @@ namespace SimpleApi.BLL.Service
 
         public OrderViewModel GetOrderById(int id)
         {
-           Order order = _unitOfWork.Orders.GetOrderById(id);
+            Order order = _unitOfWork.Orders.GetOrderById(id);
             var orderViewModel = new OrderViewModel
             {
                 Id = order.Id,
@@ -91,5 +91,26 @@ namespace SimpleApi.BLL.Service
             };
             return orderViewModel;
         }
+
+
+        public int ConfirmOrder(OrderInfo orderInfo)
+        {
+            var result = 0;
+
+            Order order = _unitOfWork.Orders.GetOrderById(orderInfo.Id);
+
+            if (order != null)
+            {
+                order.StatusId = (int)Status.Shipped;
+                order.CustomerAddress = orderInfo.CustomerAddress;
+                order.MobileNumber = orderInfo.MobileNumber;
+                order.CustomerName = orderInfo.CustomerName;
+                _unitOfWork.Complete();
+                result = orderInfo.Id;
+            }
+            return result;
+
+        }
+
     }
 }

@@ -12,5 +12,6 @@ namespace SimpleApi.BLL.Service.Intrfaces
         int CreateOrder(OrderModel order);
         void DeleteOrder(int id);
         OrderViewModel GetOrderById(int id);
+        int ConfirmOrder(OrderInfo order);
     }
 }
