@@ -14,8 +14,8 @@
           <p class="card-text">{{product.price |  currency:'EGP'}}</p>
           <p class="card-text">{{product.quantityInStock}} letf in Stock</p>
           <div class="d-flex align-items-center mt-3">
-            <input type="number" min="1" max="{{product.quantityInStock}}" #quantityInput class="form-control me-2" style="width: 100px;">
-            <a  class="btn btn-secondary ms-auto" (click)="addToCart(product.id,quantityInput.value)">Add to cart</a>
+            <input type="number" min="1"  max="{{product.quantityInStock}}"  [(ngModel)]="product.quantityToAdd" class="form-control me-2" style="width: 100px;">
+            <a  class="btn btn-secondary ms-auto" (click)="addToCart(product.id,product.quantityToAdd)">Add to cart</a>
           </div>
         </div>
       </div>

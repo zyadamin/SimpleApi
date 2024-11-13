@@ -10,7 +10,7 @@ import { NavbarComponent } from './Components/navbar/navbar.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { CartComponent } from './Components/cart/cart.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

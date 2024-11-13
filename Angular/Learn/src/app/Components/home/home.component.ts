@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { forEach } from '@angular/router/src/utils/collection';
 import { IOrderItemRequest } from 'src/app/Models/iorder-item-request';
 import { IOrderRequest } from 'src/app/Models/iorder-request';
 import { IProduct } from 'src/app/Models/iproduct';
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.startIndex=0;
+    this.startIndex = 0;
     this.loadProducts(this.startIndex, this.pageSize);
   }
 
@@ -80,6 +81,11 @@ export class HomeComponent implements OnInit {
   loadProducts(start: number, size: number): void {
     this._productService.listProducts(start, size).subscribe({
       next: (data: IProduct[]) => {
+        data.forEach(element => {
+
+         let product= this.orderItems.find(x=>x.productId == element.id)
+          element.quantityToAdd = (product == null) ? 0 : product.quantity 
+        })
         this.products = data;
         console.log('Products loaded:', this.products);
       },
@@ -100,5 +106,5 @@ export class HomeComponent implements OnInit {
       this.loadProducts(this.startIndex, this.pageSize);
     }
   }
-
+  
 }
