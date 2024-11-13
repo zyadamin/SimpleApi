@@ -1,0 +1,84 @@
+<div class="container h-100 py-5">
+  <div class="row d-flex justify-content-center align-items-center h-100">
+    <div class="col">
+      <div class="card shopping-cart" style="border-radius: 15px;">
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-lg-6 px-5 py-4">
+
+              <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Your products</h3>
+
+              <div class="d-flex align-items-center mb-5" *ngFor="let item of items">
+                <div class="flex-shrink-0">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
+                    class="img-fluid" style="width: 150px;" alt="Generic placeholder image">
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <a href="#!" class="float-end"><i class="fas fa-times"></i></a>
+                  <h5 class="text-secondary">{{item.name}}</h5>
+                  <div class="d-flex align-items-center">
+                    <p class="fw-bold mb-0 me-5 pe-3">{{item.quantity}}</p>
+                    <p class="fw-bold mb-0 me-5 pe-3">{{item.totalPrice | currency : 'EGP'}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="mb-4" style="height: 2px; background-color: #1266f1; opacity: 1;">
+              <div class="d-flex justify-content-between p-2 mb-2 bg-secondary">
+                <h5 class="fw-bold mb-0">Total:</h5>
+                <h5 class="fw-bold mb-0">{{totalAmount}}</h5>
+              </div>
+
+            </div>
+            <div class="col-lg-6 px-5 py-4">
+
+              <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Payment</h3>
+
+              <form class="mb-5" [formGroup]="userInfoForm" (submit)="ConfirmOrder()">
+                <div data-mdb-input-init class="form-outline mb-5">
+                  <input type="text" name="name" formControlName="name" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeName">User Name</label>
+                  <div class="text-danger" *ngIf="name?.touched && name?.invalid">
+                    <p *ngIf="name?.errors['required']">Name is Required</p>
+                  </div>
+                </div>
+
+                <div data-mdb-input-init class="form-outline mb-5">
+                  <input type="text" name="mobileNumber" formControlName="mobileNumber" class="form-control form-control-lg"/>
+                  <label class="form-label" for="typeText">Mobile Number</label>
+                  <div class="text-danger" *ngIf="mobileNumber?.touched && mobileNumber?.invalid">
+                    <p *ngIf="mobileNumber?.errors['required']">Mobile Number is Required</p>
+                  </div>
+                </div>
+
+
+                <div data-mdb-input-init class="form-outline mb-5">
+                  <input type="text" name="address" formControlName="address" class="form-control form-control-lg"/>
+                  <label class="form-label" for="typeName">Address</label>
+                  <div class="text-danger" *ngIf="address?.touched && address?.invalid">
+                    <p *ngIf="address?.errors['required']">Address is Required</p>
+                  </div>
+                </div>
+
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                  class="btn btn-secondary btn-block btn-lg" [disabled]="userInfoForm.invalid">Buy now</button>
+
+                <h5 class="fw-bold mb-5" style="position: absolute; bottom: 0;">
+                  <a routerLink="../../Home"><i class="fas fa-angle-left me-2"></i>Back to shopping</a>
+                </h5>
+
+                <div class="text-danger">
+                  <p>{{error}}</p>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
