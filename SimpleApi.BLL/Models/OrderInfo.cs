@@ -23,6 +23,5 @@ namespace SimpleApi.BLL.Models
         [MaxLength(12)]
         public string MobileNumber { get; set; }
 
-        public string ShippingMethod { get; set; }
     }
 }

@@ -85,7 +85,7 @@ namespace SimpleApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult ListProducts(int start = 0, int size = 10)
+        public IActionResult ListProducts(int start = 0, int size = 8)
         {
 
             try

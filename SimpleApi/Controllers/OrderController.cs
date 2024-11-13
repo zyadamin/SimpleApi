@@ -58,7 +58,7 @@ namespace SimpleApi.Controllers
 
                 if (result > 0)
                 {
-                    return Ok("Order Submited successfully");
+                    return Ok(result);
                 }
                 else
                 {

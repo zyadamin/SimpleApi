@@ -23,7 +23,7 @@ namespace SimpleApi.DAL.Repositories
         public Order GetOrderById(int id)
         {
             return _context.Orders.Where(x => x.Id == id)
-                .Include(x => x.OrderItems)?
+                .Include(x => x.OrderItems)?.ThenInclude(x=>x.Product)
                 .Include(x => x.OrderStatus).FirstOrDefault();
         }
     }

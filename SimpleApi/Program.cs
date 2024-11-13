@@ -25,7 +25,7 @@ builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<IOrderService,OrderService>();
 
-
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -37,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors(op=>op.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
 
 app.UseAuthorization();
 

@@ -71,24 +71,31 @@ namespace SimpleApi.BLL.Service
         public OrderViewModel GetOrderById(int id)
         {
             Order order = _unitOfWork.Orders.GetOrderById(id);
-            var orderViewModel = new OrderViewModel
-            {
-                Id = order.Id,
-                CustomerName = order.CustomerName,
-                CustomerAddress = order.CustomerAddress,
-                MobileNumber = order.MobileNumber,
-                StatusId = order.StatusId,
-                TotalAmount = order.TotalAmount,
-                ShippingMethod = order.ShippingMethod,
-                Items = order.OrderItems.Select(item => new OrderItemViewModel
+            OrderViewModel orderViewModel = new OrderViewModel();
+            if (order.StatusId == (int)Status.Pending) {
+
+                 orderViewModel = new OrderViewModel
                 {
-                    Id = item.Id,
-                    ProductId = item.ProductId,
-                    Quantity = item.Quantity,
-                    TotalPrice = item.TotalPrice,
-                    UnitPrice = item.UnitPrice
-                }).ToList()
-            };
+                    Id = order.Id,
+                    CustomerName = order.CustomerName,
+                    CustomerAddress = order.CustomerAddress,
+                    MobileNumber = order.MobileNumber,
+                    StatusId = order.StatusId,
+                    TotalAmount = order.TotalAmount,
+                    ShippingMethod = order.ShippingMethod,
+                    Items = order.OrderItems.Select(item => new OrderItemViewModel
+                    {
+                        Id = item.Id,
+                        Quantity = item.Quantity,
+                        TotalPrice = item.TotalPrice,
+                        UnitPrice = item.UnitPrice,
+                        Description = item.Product.Description,
+                        Name = item.Product.Name,
+                    }).ToList()
+                };
+
+            }
+
             return orderViewModel;
         }
 
