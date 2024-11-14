@@ -11,6 +11,7 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductCardComponent } from './Components/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NotFoundComponent,
     FooterComponent,
     CartComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

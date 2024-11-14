@@ -31,30 +31,26 @@ export class HomeComponent implements OnInit {
     this.loadProducts(this.startIndex, this.pageSize);
   }
 
-  addToCart(id: number, quantity: string) {
+  addToCart(orderItem:IOrderItemRequest) {
 
-    const quantityNumber = Number(quantity);
     // Check if the product is already in the cart
-    const existingItem = this.orderItems.find(item => item.productId == id);
-    const product = this.products.find(item => item.id == id);
+    const existingItem = this.orderItems.find(item => item.productId == orderItem.productId);
+    const product = this.products.find(item => item.id == orderItem.productId);
 
 
     if (existingItem) {
       // Update the quantity if it already exists, checking against stock
-      if (quantityNumber <= product.quantityInStock) {
-        existingItem.quantity = quantityNumber;
-        console.log(`Updated quantity for product ${product.name} to ${quantity}`);
+      if (orderItem.quantity <= product.quantityInStock) {
+        existingItem.quantity = orderItem.quantity;
+        console.log(`Updated quantity for product ${product.name} to ${orderItem.quantity}`);
       } else {
         console.warn(`Only ${product.quantityInStock} items available in stock`);
       }
     } else {
       // Add new item if it doesn't exist in the cart, checking stock
-      if (quantityNumber <= product.quantityInStock) {
-        this.orderItems.push({
-          productId: product.id,
-          quantity: quantityNumber,
-        });
-        console.log(`Added ${quantity} of ${product.name} to the cart`);
+      if (orderItem.quantity <= product.quantityInStock) {
+        this.orderItems.push(orderItem);
+        console.log(`Added ${orderItem.quantity} of ${product.name} to the cart`);
       } else {
         console.warn(`Only ${product.quantityInStock} items available in stock`);
       }
